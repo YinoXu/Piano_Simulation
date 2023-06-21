@@ -1,11 +1,29 @@
 %piano.m
 clear all
 % Specify the music to be played:
-nmax = 15; % Number of notes
-tnote = [0.5, 1, 1.5, 2.0, 2.5, 3, 3.5, 4, 4.5, 5, 5.5, 6, 6.5, 7.25, 7.5]; % Onset times of the notes (s)
-dnote = [0.4, 0.4, 0.4, 0.4, 0.4, 0.4, 0.4, 0.4, 0.4, 0.4, 0.4, 0.4, 0.6, 0.2, 0.8]; % Durations of the notes (s)
-anote = [0.8, 0.8, 0.8, 0.8, 0.8, 0.8, 0.8, 0.8, 0.8, 0.8, 0.8, 0.8, 0.8, 0.8, 0.8]; % Relative amplitudes of the notes
-inote = [8, 8, 9, 11, 11, 9, 8, 6, 4, 4, 6, 8, 8, 6, 6]; % String indices of the notes
+%nmax = 15; % Number of notes
+tnote_1 = [0.5, 1, 1.5, 2.0, 2.5, 3, 3.5, 4, 4.5, 5, 5.5, 6, 6.5, 7.25, 7.5]; % Onset times of the notes (s)
+tnote_2 = [0.5, 0.5, 2.5, 2.5, 4.5, 4.5, 5.5, 6.0, 6.5];
+dnote_1 = [0.6, 0.6, 0.6, 0.6, 0.6, 0.6, 0.6, 0.6, 0.6, 0.6, 0.6, 0.6, 0.9, 0.3, 1.2]; % Durations of the notes (s)
+dnote_2 = [2.4, 2.4, 2.4, 2.4, 1.2, 1.2, 0.6, 0.6, 2.4];
+anote_1 = [0.8, 0.8, 0.8, 0.8, 0.8, 0.8, 0.8, 0.8, 0.8, 0.8, 0.8, 0.8, 0.8, 0.8, 0.8]; % Relative amplitudes of the notes
+anote_2 = [0.8, 0.8, 0.8, 0.8, 0.8, 0.8, 0.8, 0.8, 0.8];
+inote_1 = [20, 20, 21, 23, 23, 21, 20, 18, 16, 16, 18, 20, 20, 18, 18]; % String indices of the notes
+inote_2 = [4, 11, 3, 11, 8, 11, 6, 4, 11];
+nmax = length(tnote_1)+length(tnote_2);
+
+[tnote, dnote, anote, inote] = merge(tnote_1, tnote_2, dnote_1, dnote_2, anote_1, anote_2, inote_1, inote_2);
+
+
+
+%tnote = cat(2, tnote_1, tnote_2);
+%tnote = [0.5, 0.5, 1.0, 1.5, 2.0, 2.5, 2.5, 3.0, 3.5, 4.0, 4.5, 4.5, 5.0, 5.5, 6.0, 6.5, 6.5, 7.25, 7.5]; % Onset times of the notes (s)
+%dnote = cat(2, dnote_1, dnote_2);
+%dnote = [0.6, 2.4, 0.6, 0.6, 0.6, 0.6, 2.4, 0.6, 0.6, 0.6, 0.6, 2.4, 0.6, 0.6, 0.6, 0.9, 2.4, 0.3, 1.2]; % Durations of the notes (s)
+%anote = cat(2, anote_1, anote_2);
+%anote = [0.8, 0.8, 0.8, 0.8, 0.8, 0.8, 0.8, 0.8, 0.8, 0.8, 0.8, 0.8, 0.8, 0.8, 0.8, 0.8, 0.8, 0.8, 0.8]; % Relative amplitudes of the notes
+%inote = cat(2, inote_1, inote_2);
+%inote = [20, 4, 20, 21, 23, 23, 11,  21, 20, 18, 16, 4, 16, 18, 20, 20, 11, 18, 18]; % String indices of the notes
 
 %initialize string parameters:
 L=1; % length of all strings
@@ -73,5 +91,5 @@ for clock=1:clockmax
     end
 end
 soundsc(S(1:count)) %listen to the sound
-save('Sbase');
+save('S');
 plot(tsave(1:count),S(1:count)) %plot the soundwave
